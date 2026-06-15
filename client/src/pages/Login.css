@@ -1,0 +1,11 @@
+.login{
+  text-align:center;
+  padding:40px;
+}
+
+.login form{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+}
