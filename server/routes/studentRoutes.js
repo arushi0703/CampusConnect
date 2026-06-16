@@ -2,57 +2,22 @@ const express = require("express")
 
 const router = express.Router()
 
-const students = require("../data/students")
+const {
+    createUser,
+    getUsers,
+    getUserById,
+    updateUser,
+    deleteUser
+} = require("../controllers/userController")
 
-router.post("/", (req,res) => {
+router.post("/",createUser)
 
-    const student = req.body
+router.get("/",getUsers)
 
-    students.push(student)
+router.get("/:id",getUserById)
 
-    res.status(201).json({
-        success:true,
-        message:"Student created successfully",
-        data:student
-    })
+router.put("/:id",updateUser)
 
-})
-
-router.get("/", (req,res) => {
-
-    res.status(200).json({
-        success:true,
-        message:"Students retrieved successfully",
-        data:students
-    })
-
-})
-
-router.get("/:id", (req,res) => {
-
-    res.status(200).json({
-        success:true,
-        message:"Single student retrieved"
-    })
-
-})
-
-router.put("/:id", (req,res) => {
-
-    res.status(200).json({
-        success:true,
-        message:"Student updated successfully"
-    })
-
-})
-
-router.delete("/:id", (req,res) => {
-
-    res.status(200).json({
-        success:true,
-        message:"Student deleted successfully"
-    })
-
-})
+router.delete("/:id",deleteUser)
 
 module.exports = router

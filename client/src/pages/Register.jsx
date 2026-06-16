@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './Register.css'
 import InputField from '../components/InputField'
 import CustomButton from '../components/CustomButton'
+import api from '../services/api'
 
 const Register = () => {
 
@@ -49,23 +50,60 @@ const Register = () => {
     return errorMessage
   }
 
-  const submitHandler = (event) => {
-    event.preventDefault()
-    const validErrors = validations()
-    if(Object.keys(validErrors).length > 0){
-      setError(validErrors)
-      setSuccess("")
-    }
-    else{
-      setError({})
-      setLoading(true)
-      setTimeout(() => {
-        setLoading(false)
-        setSuccess("Registration Successful")
-        console.log(formData)
-      },1500)
-    }
+  const submitHandler = async (event) => {
+
+  event.preventDefault()
+
+  const validErrors = validations()
+
+  if(Object.keys(validErrors).length > 0){
+
+    setError(validErrors)
+    setSuccess("")
+
+    return
+
   }
+
+  try{
+
+    setLoading(true)
+
+    const response = await api.post("/students",{
+
+      name:formData.name,
+      email:formData.email,
+      password:formData.password
+
+    })
+
+    setLoading(false)
+
+    setError({})
+
+    setSuccess(response.data.message)
+
+    setFormData({
+      name:"",
+      email:"",
+      password:"",
+      confirmPassword:""
+    })
+
+  }
+  catch(error){
+
+    setLoading(false)
+
+    setSuccess("")
+
+    setError({
+      api:error.response?.data?.message || "Registration Failed"
+    })
+
+  }
+
+}
 
   return (
     <div className='register'>
@@ -87,6 +125,7 @@ const Register = () => {
         <CustomButton text="Register" type="submit" onClick={clickHandler} />
       </form>
 
+      {error.api && <p style={{color:"red"}}>{error.api}</p>}
       {loading && <p>Loading...</p>}
       {success && <p style={{color:"green"}}>{success}</p>}
     </div>
