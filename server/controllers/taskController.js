@@ -30,7 +30,7 @@ const createTask = async (req, res) => {
 
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Server Error"
         })
 
     }
@@ -53,7 +53,7 @@ const getTasks = async (req, res) => {
 
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Server Error"
         })
 
     }
@@ -91,9 +91,22 @@ const updateTask = async (req, res) => {
     }
     catch (error) {
 
+        if (error.name === "ValidationError") {
+
+            const errors = Object.values(error.errors).map(
+                item => item.message
+            )
+
+            return res.status(400).json({
+                success: false,
+                errors
+            })
+
+        }
+
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Server Error"
         })
 
     }
@@ -104,7 +117,9 @@ const deleteTask = async (req, res) => {
 
     try {
 
-        const task = await Task.findByIdAndDelete(req.params.id)
+        const task = await Task.findByIdAndDelete(
+            req.params.id
+        )
 
         if (!task) {
 
@@ -125,7 +140,7 @@ const deleteTask = async (req, res) => {
 
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Server Error"
         })
 
     }

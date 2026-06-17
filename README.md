@@ -1,16 +1,44 @@
-# CampusConnect - Student Activity Management Portal
+# CampusConnect – Student Activity Management Portal
 
-## Project Overview
+## Overview
 
-CampusConnect is a MERN Stack web application developed for university student activity management. The system allows students to register, manage tasks, view announcements, access a personalized dashboard, and interact with data stored in MongoDB through REST APIs.
+CampusConnect is a React-based Student Activity Management Portal developed as part of a MERN Stack lab project.
 
-The project was developed as part of the MERN Stack Architecture and Full-Stack Development laboratory exercises.
+The application allows students to:
+
+* Register for an account
+* Login to the system
+* Access a student dashboard
+* View campus announcements
+* Navigate between pages without browser refresh
+
+---
+
+## Features
+
+### User Features
+
+* Student Registration
+* Student Login
+* Student Dashboard
+* Campus Announcements
+* Responsive User Interface
+
+### Technical Features
+
+* React Functional Components
+* React Router Navigation
+* Reusable Components
+* Form Validation
+* State Management using useState
+* Event Handling
+* Conditional Rendering
+* Dynamic Data Rendering
+* Responsive Design
 
 ---
 
 ## Technologies Used
-
-### Frontend
 
 * React.js
 * React Router DOM
@@ -28,340 +56,118 @@ The project was developed as part of the MERN Stack Architecture and Full-Stack 
 * Dotenv
 * Nodemon
 
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB
+* Mongoose
+
+### Authentication & Security
+
+* bcrypt
+* JSON Web Token (JWT)
+
+### Development Tools
+
+* VS Code
+* MongoDB Compass
+* Postman
+* Git & GitHub
+
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```text
-CampusConnect
+client/
 │
-├── client
-│   ├── src
-│   │   ├── assets
-│   │   ├── components
-│   │   ├── pages
-│   │   ├── routes
-│   │   ├── services
-│   │   ├── styles
-│   │   ├── App.jsx
-│   │   └── main.jsx
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── AnnouncementCard.jsx
+│   │   ├── InputField.jsx
+│   │   └── CustomButton.jsx
 │   │
-│   ├── package.json
-│   └── vite.config.js
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   └── Dashboard.jsx
+│   │
+│   ├── layouts/
+│   ├── routes/
+│   ├── services/
+│   └── styles/
 │
-├── server
-│   ├── config
-│   ├── controllers
-│   ├── middleware
-│   ├── models
-│   ├── routes
-│   ├── app.js
-│   ├── server.js
-│   └── .env
-│
-└── README.md
+├── package.json
+└── vite.config.js
 ```
 
 ---
 
-## Features
+## Implemented Concepts
 
-### Student Management
+### React Fundamentals
 
-* Student Registration
-* Student Profile Update
-* View Registered Students
-* Delete Student Records
-* MongoDB Data Persistence
+* Functional Components
+* JSX
+* Props
+* useState Hook
 
-### Task Management
+### React Features
 
-* Create Tasks
-* Update Task Details
-* Change Task Status
-* Delete Tasks
-* Dynamic Task Rendering
+* Routing with React Router DOM
+* Controlled Components
+* Event Handling
+* Conditional Rendering
+* Dynamic List Rendering
 
-### Dashboard
+### Form Handling
 
-* Display Registered Users
-* Display User Registration Details
-* Display Tasks
-* Real-Time Data Rendering
-* Loading and Error States
+#### Login Validation
 
-### User Interface
+* Email Required
+* Password Required
 
-* Responsive Design
-* React Functional Components
-* Reusable Components
-* Client-Side Routing
-* Form Validation
-* Success and Error Messages
+#### Registration Validation
 
----
+* Name Required
+* Email Format Validation
+* Password Length Validation
+* Password Confirmation Matching
 
-## MERN Architecture
+### Dynamic Data Rendering
 
-```text
-React Frontend
-      ↓
-Axios HTTP Requests
-      ↓
-Express REST APIs
-      ↓
-Mongoose Models
-      ↓
-MongoDB Database
-```
+Campus announcements are stored in a collection and rendered dynamically using:
+
+* Arrays
+* map()
+* Unique IDs
+* Reusable Card Components
 
 ---
 
-## REST API Endpoints
+## Future Enhancements
 
-### Student APIs
-
-| Method | Endpoint      | Description             |
-| ------ | ------------- | ----------------------- |
-| POST   | /students     | Create Student          |
-| GET    | /students     | Retrieve All Students   |
-| GET    | /students/:id | Retrieve Single Student |
-| PUT    | /students/:id | Update Student          |
-| DELETE | /students/:id | Delete Student          |
+* Express.js Backend Integration
+* MongoDB Database
+* User Authentication
+* API Integration using Axios
+* Announcement Management System
 
 ---
 
-### Task APIs
-
-| Method | Endpoint   | Description        |
-| ------ | ---------- | ------------------ |
-| POST   | /tasks     | Create Task        |
-| GET    | /tasks     | Retrieve All Tasks |
-| PUT    | /tasks/:id | Update Task        |
-| DELETE | /tasks/:id | Delete Task        |
-
----
-
-## MongoDB Collections
-
-### Users Collection
-
-```json
-{
-  "name": "String",
-  "email": "String",
-  "password": "String",
-  "registrationDate": "Date"
-}
-```
-
-### Tasks Collection
-
-```json
-{
-  "title": "String",
-  "description": "String",
-  "status": "Pending | In Progress | Completed",
-  "assignedUser": "String",
-  "createdDate": "Date"
-}
-```
-
----
-
-## Validation Rules
-
-### User Validation
-
-* Name is required
-* Name minimum length: 3 characters
-* Name maximum length: 50 characters
-* Email is required
-* Email must be unique
-* Password is required
-* Password minimum length: 6 characters
-
-### Task Validation
-
-* Title is required
-* Description is required
-* Assigned User is required
-* Status must be:
-
-  * Pending
-  * In Progress
-  * Completed
-
----
-
-## Middleware Implemented
-
-### JSON Middleware
-
-```javascript
-app.use(express.json())
-```
-
-### CORS Middleware
-
-```javascript
-app.use(cors())
-```
-
-### Custom Logger Middleware
-
-Logs incoming API requests.
-
----
-
-## Frontend Pages
-
-### Home
-
-Landing page of CampusConnect.
-
-### Login
-
-Student login interface.
-
-### Register
-
-Student registration form connected to MongoDB.
-
-### Dashboard
-
-Displays:
-
-* Registered students
-* User information
-* Registration details
-* Tasks
-* Task status
-
-### Tasks
-
-Allows users to:
-
-* Create Tasks
-* Update Task Details
-
-### Profile
-
-Allows users to:
-
-* Update Profile Information
-
----
-
-## Reusable Components
-
-* Navbar
-* Footer
-* Layout
-* InputField
-* CustomButton
-* UserCard
-* TaskCard
-* AnnouncementCard
-
----
-
-## CRUD Operations Implemented
-
-### User CRUD
-
-* Create User
-* Retrieve Users
-* Update User
-* Delete User
-
-### Task CRUD
-
-* Create Task
-* Retrieve Tasks
-* Update Task
-* Delete Task
-
----
-
-## Installation and Setup
-
-### Clone Repository
-
-```bash
-git clone <repository-url>
-```
-
----
-
-### Frontend Setup
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
-Frontend runs on:
-
-```text
-http://localhost:5173
-```
-
----
-
-### Backend Setup
-
-```bash
-cd server
-npm install
-npm run dev
-```
-
-Backend runs on:
-
-```text
-http://localhost:5000
-```
-
----
-
-### MongoDB Configuration
-
-Create a `.env` file inside the server folder.
-
-```env
-PORT=5000
-
-MONGO_URI=mongodb://127.0.0.1:27017/campusconnect
-```
-
-Ensure MongoDB Compass or MongoDB Community Server is running.
-
----
-
-## Learning Outcomes
-
-This project demonstrates:
-
-* MERN Stack Architecture
-* React Functional Components
-* React State Management
-* React Router Navigation
-* REST API Development
-* Express Middleware
-* MongoDB Integration
-* Mongoose Models and Validation
-* CRUD Operations
-* Axios API Communication
-* Full-Stack Application Development
-
----
-
-## Author
+## 👩‍💻 Author
 
 **Arushi**
 
-B.Tech Computer Science Engineering
+B.Tech Computer Science Engineering Student
 
-Academic Project – CampusConnect
+---
+
+⭐ If you found this project useful, consider giving it a star.

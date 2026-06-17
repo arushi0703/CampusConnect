@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Register.css'
+import './LoginRegister.css'
 import InputField from '../components/InputField'
 import CustomButton from '../components/CustomButton'
 import api from '../services/api'

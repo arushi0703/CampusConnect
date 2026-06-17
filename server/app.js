@@ -4,6 +4,7 @@ const cors = require("cors")
 
 const studentRoutes = require("./routes/studentRoutes")
 const taskRoutes = require("./routes/taskRoutes")
+const errorMiddleware = require("./middleware/errorMiddleware")
 
 const app = express()
 
@@ -16,6 +17,8 @@ app.use(express.json())
 app.use("/students",studentRoutes)
 
 app.use("/tasks",taskRoutes)
+
+app.use(errorMiddleware)
 
 app.get("/",(req,res)=>{
 

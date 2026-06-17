@@ -65,9 +65,11 @@ const Tasks = () => {
     }
     catch(error){
 
-      setMessage("Task Creation Failed")
+  console.log(error.response.data)
 
-    }
+  setMessage("Task Creation Failed")
+
+}
 
   }
 
