@@ -18,6 +18,9 @@ const authMiddleware = (req,res,next) => {
         next()
     }
     catch(error){
+
+        console.log(`UNAUTHORIZED ACCESS ATTEMPT: ${req.url}`)
+
         return res.status(401).json({
             success:false,
             message:"Invalid Token"

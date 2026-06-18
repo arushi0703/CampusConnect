@@ -2,154 +2,170 @@ const Task = require("../models/Task")
 
 const createTask = async (req, res) => {
 
-    try {
 
-        const task = await Task.create(req.body)
+try {
 
-        res.status(201).json({
-            success: true,
-            message: "Task created successfully",
-            data: task
-        })
+    const task = await Task.create(req.body)
 
-    }
-    catch (error) {
+    res.status(201).json({
+        success: true,
+        message: "Task created successfully",
+        data: task
+    })
 
-        if (error.name === "ValidationError") {
+}
+catch (error) {
 
-            const errors = Object.values(error.errors).map(
-                item => item.message
-            )
+    console.log(error)
 
-            return res.status(400).json({
-                success: false,
-                errors
-            })
+    if (error.name === "ValidationError") {
 
-        }
+        const errors = Object.values(error.errors).map(
+            item => item.message
+        )
 
-        res.status(500).json({
+        return res.status(400).json({
             success: false,
-            message: "Server Error"
+            errors
         })
 
     }
+
+    res.status(500).json({
+        success: false,
+        message: "Server Error"
+    })
+
+}
+
 
 }
 
 const getTasks = async (req, res) => {
 
-    try {
+```
+try {
 
-        const tasks = await Task.find()
+    const tasks = await Task.find()
 
-        res.status(200).json({
-            success: true,
-            data: tasks
-        })
+    res.status(200).json({
+        success: true,
+        data: tasks
+    })
 
-    }
-    catch (error) {
+}
+catch (error) {
 
-        res.status(500).json({
-            success: false,
-            message: "Server Error"
-        })
+    console.log(error)
 
-    }
+    res.status(500).json({
+        success: false,
+        message: "Server Error"
+    })
+
+}
+```
 
 }
 
 const updateTask = async (req, res) => {
 
-    try {
+```
+try {
 
-        const task = await Task.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            {
-                new: true,
-                runValidators: true
-            }
+    const task = await Task.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+            new: true,
+            runValidators: true
+        }
+    )
+
+    if (!task) {
+
+        return res.status(404).json({
+            success: false,
+            message: "Task not found"
+        })
+
+    }
+
+    res.status(200).json({
+        success: true,
+        message: "Task updated successfully",
+        data: task
+    })
+
+}
+catch (error) {
+
+    console.log(error)
+
+    if (error.name === "ValidationError") {
+
+        const errors = Object.values(error.errors).map(
+            item => item.message
         )
 
-        if (!task) {
-
-            return res.status(404).json({
-                success: false,
-                message: "Task not found"
-            })
-
-        }
-
-        res.status(200).json({
-            success: true,
-            message: "Task updated successfully",
-            data: task
-        })
-
-    }
-    catch (error) {
-
-        if (error.name === "ValidationError") {
-
-            const errors = Object.values(error.errors).map(
-                item => item.message
-            )
-
-            return res.status(400).json({
-                success: false,
-                errors
-            })
-
-        }
-
-        res.status(500).json({
+        return res.status(400).json({
             success: false,
-            message: "Server Error"
+            errors
         })
 
     }
+
+    res.status(500).json({
+        success: false,
+        message: "Server Error"
+    })
+
+}
+```
 
 }
 
 const deleteTask = async (req, res) => {
 
-    try {
+```
+try {
 
-        const task = await Task.findByIdAndDelete(
-            req.params.id
-        )
+    const task = await Task.findByIdAndDelete(
+        req.params.id
+    )
 
-        if (!task) {
+    if (!task) {
 
-            return res.status(404).json({
-                success: false,
-                message: "Task not found"
-            })
-
-        }
-
-        res.status(200).json({
-            success: true,
-            message: "Task deleted successfully"
-        })
-
-    }
-    catch (error) {
-
-        res.status(500).json({
+        return res.status(404).json({
             success: false,
-            message: "Server Error"
+            message: "Task not found"
         })
 
     }
+
+    res.status(200).json({
+        success: true,
+        message: "Task deleted successfully"
+    })
+
+}
+catch (error) {
+
+    console.log(error)
+
+    res.status(500).json({
+        success: false,
+        message: "Server Error"
+    })
+
+}
+```
 
 }
 
 module.exports = {
-    createTask,
-    getTasks,
-    updateTask,
-    deleteTask
+createTask,
+getTasks,
+updateTask,
+deleteTask
 }

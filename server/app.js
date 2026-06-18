@@ -14,17 +14,15 @@ app.use(logger)
 
 app.use(express.json())
 
-app.use("/students",studentRoutes)
-
-app.use("/tasks",taskRoutes)
-
-app.use(errorMiddleware)
-
 app.get("/",(req,res)=>{
 
     res.send("CampusConnect Backend Running")
 
 })
+
+app.use("/students",studentRoutes)
+
+app.use("/tasks",taskRoutes)
 
 app.use((req,res)=>{
 
@@ -34,5 +32,7 @@ app.use((req,res)=>{
     })
 
 })
+
+app.use(errorMiddleware)
 
 module.exports = app

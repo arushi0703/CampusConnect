@@ -1,7 +1,15 @@
 const logger = (req,res,next) => {
-    console.log(`${req.method} ${req.url}`)
+
+    const time = new Date().toLocaleString()
+
+    console.log(
+
+        `[${time}] ${req.method} ${req.url}`
+
+    )
 
     next()
+
 }
 
 module.exports = logger

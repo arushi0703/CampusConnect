@@ -5,18 +5,20 @@ const errorMiddleware = (
     next
 ) => {
 
+    console.error(error)
+
     const statusCode =
-    res.statusCode === 200
+    res.statusCode && res.statusCode !== 200
     ?
-    500
-    :
     res.statusCode
+    :
+    500
 
     res.status(statusCode).json({
 
         success:false,
 
-        message:error.message
+        message:error.message || "Server Error"
 
     })
 

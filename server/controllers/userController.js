@@ -36,6 +36,10 @@ const createUser = async (req, res) => {
             password: hashedPassword
         })
 
+        console.log(
+            `NEW USER REGISTERED: ${user.email}`
+        )
+
         res.status(201).json({
             success: true,
             message: "Registration Successful",
@@ -49,6 +53,8 @@ const createUser = async (req, res) => {
 
     }
     catch (error) {
+
+        console.log(error)
 
         if (error.name === "ValidationError") {
 
@@ -91,6 +97,10 @@ const loginUser = async (req, res) => {
 
         if (!user) {
 
+            console.log(
+                `LOGIN FAILED: ${email}`
+            )
+
             return res.status(401).json({
                 success: false,
                 message: "Invalid Credentials"
@@ -104,6 +114,10 @@ const loginUser = async (req, res) => {
         )
 
         if (!isMatch) {
+
+            console.log(
+                `LOGIN FAILED: ${email}`
+            )
 
             return res.status(401).json({
                 success: false,
@@ -124,6 +138,10 @@ const loginUser = async (req, res) => {
             }
         )
 
+        console.log(
+            `LOGIN SUCCESS: ${user.email}`
+        )
+
         res.status(200).json({
             success: true,
             message: "Login Successful",
@@ -135,6 +153,8 @@ const loginUser = async (req, res) => {
     }
     catch (error) {
 
+        console.log(error)
+
         res.status(500).json({
             success: false,
             message: "Server Error"
@@ -144,29 +164,25 @@ const loginUser = async (req, res) => {
 
 }
 
-const getUsers = async (req,res) => {
+const getUsers = async (req, res) => {
 
     try {
 
-        console.log("GET USERS HIT")
-
-        const users = await User.find()
-
-        console.log(users)
+        const users = await User.find().select("-password")
 
         res.status(200).json({
-            success:true,
-            data:users
+            success: true,
+            data: users
         })
 
     }
-    catch(error){
+    catch (error) {
 
         console.log(error)
 
         res.status(500).json({
-            success:false,
-            message:error.message
+            success: false,
+            message: "Server Error"
         })
 
     }
@@ -177,7 +193,9 @@ const getUserById = async (req, res) => {
 
     try {
 
-        const user = await User.findById(req.params.id).select("-password")
+        const user = await User.findById(
+            req.params.id
+        ).select("-password")
 
         if (!user) {
 
@@ -200,6 +218,8 @@ const getUserById = async (req, res) => {
 
     }
     catch (error) {
+
+        console.log(error)
 
         res.status(500).json({
             success: false,
@@ -245,6 +265,8 @@ const updateUser = async (req, res) => {
 
     }
     catch (error) {
+
+        console.log(error)
 
         if (error.name === "ValidationError") {
 
@@ -292,6 +314,8 @@ const deleteUser = async (req, res) => {
 
     }
     catch (error) {
+
+        console.log(error)
 
         res.status(500).json({
             success: false,
