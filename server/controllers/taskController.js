@@ -43,7 +43,7 @@ catch (error) {
 
 const getTasks = async (req, res) => {
 
-```
+
 try {
 
     const tasks = await Task.find()
@@ -64,13 +64,13 @@ catch (error) {
     })
 
 }
-```
+
 
 }
 
 const updateTask = async (req, res) => {
 
-```
+
 try {
 
     const task = await Task.findByIdAndUpdate(
@@ -121,13 +121,13 @@ catch (error) {
     })
 
 }
-```
+
 
 }
 
 const deleteTask = async (req, res) => {
 
-```
+
 try {
 
     const task = await Task.findByIdAndDelete(
@@ -159,7 +159,7 @@ catch (error) {
     })
 
 }
-```
+
 
 }
 
